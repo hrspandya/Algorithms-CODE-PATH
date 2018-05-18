@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    Find the kth smallest element in an unsorted array of non-negative integers.
+    <br/>
+    Example:
+    <br/>
+    A : [2 1 4 3 2]
+    <br/>
+    k : 3
+    <br/>
+    answer : 2
+    <br/>
+    <br/>
+    OPEN BROSER CONSOLE AND SEE OUTPUT ...
+
+    <script>
+        const array = [ 8, 16, 80, 55, 32 ];
+        const k = 3;
+
+        // merge sort
+        const sort = (a) => {
+            if (a && a.length > 1) {
+                return mergeSort(a);
+            }    
+            return a;
+        };
+
+        const mergeSort = (a) => {
+            let n = a.length;
+
+            if (n <= 1) {
+                return a;
+            } else {
+                let mid = parseInt(( 0 + n ) / 2);
+
+                let lArray = [];
+                for (let i = 0; i < mid; i+=1) {
+                    lArray[i] = a[i];
+                }
+
+                let rArray = [];
+                for (let i = mid, j = 0; i < n; i+=1) {
+                    rArray[j] = a[i];
+                    j++;
+                }
+
+                let leftArray = mergeSort(lArray);
+                let rightArray = mergeSort(rArray);
+                let resultArray = merge(leftArray, rightArray);
+
+                return resultArray;
+            }
+        };
+
+        const merge = (leftArray, rightArray) => {
+            let leftIndex = 0, 
+            rightIndex = 0, 
+            resultIndex = 0, 
+            resultArray = [], 
+            leftArrayLength = leftArray.length, 
+            rightArrayLength = rightArray.length;
+
+            // loop through both array and compare index and sort them in result array
+            while (leftIndex < leftArrayLength && rightIndex < rightArrayLength) {
+                if (leftArray[leftIndex] <= rightArray[rightIndex]) {
+                    resultArray[resultIndex] = leftArray[leftIndex];
+                    resultIndex++;
+                    leftIndex++;
+                } else if (rightArray[rightIndex] < leftArray[leftIndex] ) {
+                    resultArray[resultIndex] = rightArray[rightIndex];
+                    resultIndex++;
+                    rightIndex++;
+                } else if (rightArray[rightIndex] === leftArray[leftIndex]) {
+                    resultArray[resultIndex] = leftArray[leftIndex];
+                    resultIndex++;
+                    leftIndex++;
+                    rightIndex++;
+                }
+            }
+
+            // if LeftArray is bigger than right Array
+            while (leftIndex < leftArrayLength) {
+                resultArray[resultIndex] = leftArray[leftIndex];
+                resultIndex++;
+                leftIndex++;
+            }
+
+            // if RightArray is bigger than left Array
+            while (rightIndex < rightArrayLength) {
+                resultArray[resultIndex] = rightArray[rightIndex];
+                resultIndex++;
+                rightIndex++;
+            }
+
+            return resultArray;
+        };
+
+        //param A : array of integers
+        //param B : integer
+        //return an integer
+        const kthSmallest = (a, k) => {
+            // first we should sort the array and then find kth smallest element
+            let sortedArray = sort(array);
+            console.log(sortedArray);
+
+            if (k <= a.length) {
+                let resultIndex = a.length - k;
+                console.log(sortedArray[resultIndex]);
+                return sortedArray[resultIndex];
+            }
+
+            return null;
+        };
+
+        kthSmallest(array, k);
+    
+    </script>
+</body>
+</html>

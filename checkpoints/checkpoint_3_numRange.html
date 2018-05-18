@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    NUMRANGE:
+    <br/>    
+    Example :
+    <br/>
+    A : [10, 5, 1, 0, 2]
+    <br/>
+    (B, C) : (6, 8)
+    <br/>
+    ans = 3 
+    <br/>
+    as [5, 1], [5, 1, 0], [5, 1, 0, 2] are the only 3 continuous subsequence with their sum in the range [6, 8]
+    <br/>
+    <br/>
+    OPEN BROSER CONSOLE AND SEE OUTPUT ...
+
+    <script>
+        const array = [ 80, 97, 78, 45, 23, 38, 38, 93, 83, 16, 91, 69, 18, 82, 60, 50, 61, 70, 15, 6, 52, 90 ];
+        const B = 99;
+        const C = 269;
+
+
+        //param A : array of integers
+        //param B : integer
+        //param C : integer
+        //return an integer
+        const numRange = (a, b, c) => {    
+            // first we loop through the array
+            // for each index, we have two pointers start and end,
+            // end moves one step forward and verifies result, when result exceeds Range, 
+            // start and end resets and we continue with for loop, 
+            let result = 0;
+            let resultArray = [];
+
+            for (let i = 0; i < a.length; i+=1) {
+                let start = i, end = i;
+                if (a[start] <= c) {
+                    let subArray = [];
+                    let count = a[start];
+                    subArray.push(a[start]);
+                    if (count >= b && count <= c) {
+                        //result found
+                        // arrays and objects are passed via reference so we need to slice and copy
+                        let copyArray = subArray.slice(0);
+                        resultArray.push(copyArray);    
+                    }
+
+                    // now loop through rest of element in an array and verify.
+                    for (let j = start + 1; j < a.length; j += 1) { 
+                        end = j;
+                        if ((a[end] + count) >= b && (a[end] + count) <= c) {
+                            // update subArray, update count
+                            count = count + a[end];
+                            subArray.push(a[end]);
+
+                            // arrays and objects are passed via reference so we need to slice and copy
+                            let copyArray = subArray.slice(0);
+                            resultArray.push(copyArray);    
+                        } else {
+                            // break out of this for loop and set end to start.
+                            break;
+                        }
+                    }
+                } else {
+                    continue;
+                }
+            }
+            console.log(resultArray);
+            return resultArray.length;
+        };
+
+        console.log(numRange(array, B, C));
+    
+    </script>
+</body>
+</html>
