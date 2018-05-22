@@ -6,20 +6,13 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Debug (Launch)-checkpoint_1",
+            "name": "Debug (Launch)",
             "request": "launch",
             "cwd": "${workspaceFolder}",
             "console": "internalConsole",
             "stopOnEntry": false,
-            "mainClass": "checkpoint_1",
+            "mainClass": "",
             "args": ""
-        },
-        {
-            "type": "java",
-            "name": "Debug (Attach)",
-            "request": "attach",
-            "hostName": "localhost",
-            "port": 0
         }
     ]
 }
